@@ -9,6 +9,6 @@ app.use(express.json());
 app.use('/sighting', sighting);
 
 app.listen(3000, () => {
-    console.log("app is listening on develop branch");
+    console.log("app is listening on kara branch");
 })
 
