@@ -1,4 +1,5 @@
 //const { DATEONLY } = require("sequelize/types")
+
 module.exports = (sequelize, DataTypes) => {
     const User = sequelize.define('user', {
         username: {
@@ -16,6 +17,4 @@ module.exports = (sequelize, DataTypes) => {
         }*/
     })
     return User;
-};
-
-
+}
