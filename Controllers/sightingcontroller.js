@@ -16,7 +16,7 @@ router.put('/update/:id', function (req, res)
       description: req.body.sighting.description,
       image: req.body.sighting.image,
       rarity: req.body.sighting.rarity,
-  },
+  };
   const query = { where: { id: req.params.id, owner_id: req.user.id} };
   Sighting.update(updateSighting, query)
     .then((sightings) => res.status(200).json(logs))

@@ -11,4 +11,3 @@ app.use('/sighting', sighting);
 app.listen(3000, () => {
     console.log("app is listening on develop branch with Aryn");
 })
-
