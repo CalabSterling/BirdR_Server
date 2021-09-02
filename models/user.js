@@ -1,5 +1,4 @@
 //const { DATEONLY } = require("sequelize/types")
-
 module.exports = (sequelize, DataTypes) => {
     const User = sequelize.define('user', {
         username: {
@@ -7,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
             unique: true,
         },
-        passwordhash: {
+        password: {
             type: DataTypes.STRING,
             allowNull: false,
         },
@@ -17,4 +16,6 @@ module.exports = (sequelize, DataTypes) => {
         }*/
     })
     return User;
-}
+};
+
+
