@@ -2,43 +2,43 @@ let express = require('express');
 const sighting = require('../models/sighting');
 let router = express.Router();
 let Sighting = require('../db').import('../models/sighting');
+let validateSession = require('../Middleware/validate-session')
 
 /**************************
  **** VIEW ALL UPLOADS ****
  **************************/
 
 router.get("/", (req, res) => {
-    let userid = req.user.id;
-    bird.findAll({
-      where: { owner_id: userid },
-    })
-      .then((sighting) => res.status(200).json(sighting))
-      .catch((err) => res.status(500).json({ error: err }));
+    Sighting.findAll()
+      .then(sightings => res.status(200).json(sightings))
+      .catch(err => res.status(500).json({ error: err }));
   });
 
 /***********************
  **** DELETE UPLOAD ****
  **********************/
 
-router.delete('/sighting/:id', function (req, res) {
-    const query = {where: {/* this needs code */}}
+router.delete('/:id', validateSession, function (req, res) {
+    const query = {where: { id: req.params.id, owner_id: req.user.id}};
 
-    bird.destroy(query)
+    Sighting.destroy(query)
     .then(() => res.status(200).json({message: "Upload has been removed"}))
     .catch((err) => res.status(500).json({error: err}))
 })
 
 
 router.post('/sighting', validateSession, (req, res) => {
-    const sightingEntry = {
-        bird: req.body.sighting.bird,
-        location: req.body.sighting.location,
-        description: req.body.sighting.description,
-        image: req.body.sighting.image,
-        rarity: req.body.sighting.rarity,
-        owner_id: req.user.id
-    }
-    Sighting.create(sightingEntry)
+  const sightingEntry = {
+      bird: req.body.sighting.bird,
+      location: req.body.sighting.location,
+      time: req.body.sighting.time,
+      date: req.body.sighting.date,
+      description: req.body.sighting.description,
+      image: req.body.sighting.image,
+      rarity: req.body.sighting.rarity,
+      owner_id: req.user.id
+  }
+  Sighting.create(sightingEntry)
     .then(sighting => res.status(200).json(sighting))
     .catch(err => res.status(500).json({ error: err }))
 })
@@ -52,19 +52,21 @@ router.get('/mine', validateSession, (req, res) => {
     .catch(err => res.status(500).json({ error: err }))
 })
 
-router.put('/update/:id', function (req, res)
+router.put('/update/:id', validateSession, function (req, res)
 {
   const updateSighting = {
-      bird: req.body.sighting.bird,
-      location: req.body.sighting.location,
-      description: req.body.sighting.description,
-      image: req.body.sighting.image,
-      rarity: req.body.sighting.rarity,
+    bird: req.body.sighting.bird,
+    location: req.body.sighting.location,
+    time: req.body.sighting.time,
+    date: req.body.sighting.date,
+    description: req.body.sighting.description,
+    rarity: req.body.sighting.rarity,
+    owner_id: req.user.id
   };
   
   const query = { where: { id: req.params.id, owner_id: req.user.id} };
   Sighting.update(updateSighting, query)
-    .then((sightings) => res.status(200).json(logs))
+    .then((sightings) => res.status(200).json(sightings))
     .catch((err) => res.status(500).json({ error: err }));  
 });
 
