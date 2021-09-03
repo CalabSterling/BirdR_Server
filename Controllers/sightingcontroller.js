@@ -2,12 +2,13 @@ let express = require('express');
 const sighting = require('../models/sighting');
 let router = express.Router();
 let Sighting = require('../db').import('../models/sighting');
+let validateSession = require('../Middleware/validate-session')
 
 /**************************
  **** VIEW ALL UPLOADS ****
  **************************/
 
-router.get("/", (req, res) => {
+router.get("/", validateSession, (req, res) => {
     let userid = req.user.id;
     bird.findAll({
       where: { owner_id: userid },
@@ -20,7 +21,7 @@ router.get("/", (req, res) => {
  **** DELETE UPLOAD ****
  **********************/
 
-router.delete('/sighting/:id', function (req, res) {
+router.delete('/sighting/:id', validateSession, function (req, res) {
     const query = {where: {/* this needs code */}}
 
     bird.destroy(query)
@@ -29,7 +30,7 @@ router.delete('/sighting/:id', function (req, res) {
 })
 
 
-router.post('/sighting', validateSession, (req, res) => {
+router.post('/sighting', (req, res) => {
     const sightingEntry = {
         bird: req.body.sighting.bird,
         location: req.body.sighting.location,
@@ -60,7 +61,7 @@ router.put('/update/:id', function (req, res)
       description: req.body.sighting.description,
       image: req.body.sighting.image,
       rarity: req.body.sighting.rarity,
-  },
+  };
   const query = { where: { id: req.params.id, owner_id: req.user.id} };
   Sighting.update(updateSighting, query)
     .then((sightings) => res.status(200).json(logs))
