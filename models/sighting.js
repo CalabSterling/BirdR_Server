@@ -1,3 +1,4 @@
+
 module.exports = (sequelize, DataTypes) => {
     const Sighting = sequelize.define('sighting', {
         bird: {
