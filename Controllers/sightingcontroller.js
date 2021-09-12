@@ -1,5 +1,5 @@
 let express = require('express');
-const sighting = require('../models/sighting');
+const sighting = require('../models/sighting'); 
 let router = express.Router();
 let Sighting = require('../db').import('../models/sighting');
 let validateSession = require('../Middleware/validate-session')
