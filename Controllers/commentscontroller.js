@@ -26,7 +26,7 @@ router.put('/update/:id', validateSession, function (req, res)
 {
   const updateComment = {
     owner_id: req.user.id,
-    comment: req.body.comments.comment
+    comment: req.body.comment.comment
   };
   
   const query = { where: { id: req.params.id, owner_id: req.user.id} };
