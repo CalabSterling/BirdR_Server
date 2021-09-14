@@ -8,7 +8,8 @@ router.post('/signup', function (req, res)
 {
     user.create({
         username: req.body.user.username,
-        password: bcrypt.hashSync(req.body.user.password, 13)
+        password: bcrypt.hashSync(req.body.user.password, 13),
+        birthday: req.body.user.birthday
     })
     .then(
         function createSuccessful(user) {
