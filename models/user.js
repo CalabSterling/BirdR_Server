@@ -11,10 +11,10 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        /*birthday: {
-            type: DATEONLY,
-            allowNull: true,
-        }*/
+        birthday: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
     })
     return User;
 }
