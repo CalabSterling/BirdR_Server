@@ -60,6 +60,7 @@ router.put('/update/:id', validateSession, function (req, res)
     time: req.body.sighting.time,
     date: req.body.sighting.date,
     description: req.body.sighting.description,
+    image: req.body.sighting.image,
     rarity: req.body.sighting.rarity,
     owner_id: req.user.id
   };
