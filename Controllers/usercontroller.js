@@ -16,11 +16,13 @@ router.post('/signup', function (req, res)
     .then(
         function createSuccessful(user) {
             let token = jwt.sign({id: user.id, username: user.username}, process.env.JWT_SECRET, {expiresIn: 60*60*24});
-
+            let id= user.id;
+            
             res.json({
                 user: user,
                 message: 'User successfully created',
-                sessionToken: token
+                sessionToken: token,
+                ID: id
             });
         }
     )
@@ -40,11 +42,13 @@ router.post('/login', function(req, res) {
                 if (matches) {
 
             let token = jwt.sign({id: user.id}, process.env.JWT_SECRET, {expiresIn: 60 * 60 * 24 })
+            let id = user.id
 
             res.status(200).json({
                 user: user,
                 message: "User successfully logged in!",
-                sessionToken: token
+                sessionToken: token,
+                ID: id
             })
         } else {
             res.status(502).send({error: "Login Failed"});
