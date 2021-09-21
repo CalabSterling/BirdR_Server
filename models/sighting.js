@@ -29,6 +29,10 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.INTEGER,
             allowNull: true,
         },
+        likes: {
+            type: DataTypes.INTEGER,
+            allowNull: true,
+        },
         owner_id: {
             type: DataTypes.INTEGER,
         }

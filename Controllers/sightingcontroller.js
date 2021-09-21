@@ -1,5 +1,4 @@
 let express = require('express');
-const sighting = require('../models/sighting'); 
 let router = express.Router();
 let Sighting = require('../db').import('../models/sighting');
 let validateSession = require('../Middleware/validate-session');
@@ -36,7 +35,8 @@ router.post('/sighting', validateSession, (req, res) => {
       description: req.body.sighting.description,
       image: req.body.sighting.image,
       rarity: req.body.sighting.rarity,
-      owner_id: req.user.id
+      owner_id: req.user.id,
+      likes: 0
   }
   Sighting.create(sightingEntry)
     .then(sighting => res.status(200).json(sighting))
@@ -64,11 +64,24 @@ router.put('/update/:id', validateSession, function (req, res)
     rarity: req.body.sighting.rarity,
     owner_id: req.user.id
   };
+
   
   const query = { where: { id: req.params.id, owner_id: req.user.id} };
   Sighting.update(updateSighting, query)
     .then((sightings) => res.status(200).json(sightings))
     .catch((err) => res.status(500).json({ error: err }));  
 });
+
+router.put('/updatelikes/:id', function (req, res) {
+  const updateLikes = {
+    likes: req.body.sighting.likes
+  };
+  
+  const query = { where: { id: req.params.id, owner_id: req.params.id} };
+  Sighting.update(updateLikes, query)
+    .then((sightings) => res.status(200).json(sightings))
+    .catch((err) => res.status(500).json({ error: err }));  
+});
+
 
 module.exports = router
