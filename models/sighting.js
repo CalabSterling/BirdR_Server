@@ -35,6 +35,10 @@ module.exports = (sequelize, DataTypes) => {
         },
         owner_id: {
             type: DataTypes.INTEGER,
+        },
+        private1: {
+            type: DataTypes.STRING,
+            allowNull: true,
         }
     })
     return Sighting;

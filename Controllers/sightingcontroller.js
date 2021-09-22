@@ -35,6 +35,7 @@ router.post('/sighting', validateSession, (req, res) => {
       description: req.body.sighting.description,
       image: req.body.sighting.image,
       rarity: req.body.sighting.rarity,
+      private1: req.body.sighting.private1,
       owner_id: req.user.id,
       likes: 0
   }
@@ -62,6 +63,7 @@ router.put('/update/:id', validateSession, function (req, res)
     description: req.body.sighting.description,
     image: req.body.sighting.image,
     rarity: req.body.sighting.rarity,
+    private1: req.body.sighting.private1,
     owner_id: req.user.id
   };
 
