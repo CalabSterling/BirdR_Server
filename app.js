@@ -15,5 +15,5 @@ app.use('/user', user);
 
 
 app.listen(3000, () => {
-    console.log("app is listening");
+    console.log(`app is listening on port ${process.env.PORT}`);
 })
